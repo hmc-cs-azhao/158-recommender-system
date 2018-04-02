@@ -23,10 +23,10 @@ generate_pruned_dataset.py :
 Requires a pickle file of users, pickle file of anime, and csv file of full dataset. Paths to these can be changed from lines 6-8 respectively. Outputs a csv file with only data points of users in the user pickle file and anime in the anime pickle file.
 
 generate_topN_anime.py :
-Optional parameter provided with `-N` flag to give custom percentage, defaults to 10%. Generates pickle file of the top N % of anime sorted by how many ratings an anime has.
+Optional parameter provided with `--N` flag to give custom percentage, defaults to 10%. Generates pickle file of the top N % of anime sorted by how many ratings an anime has.
 
 generate_topN_users.py :
-Optional parameter provided with `-N` flag to give custom percentage, defaults to 10%. Generates pickle file of the top N % of users sorted by how many ratings that user has recorded.
+Optional parameter provided with `--N` flag to give custom percentage, defaults to 10%. Generates pickle file of the top N % of users sorted by how many ratings that user has recorded.
 
 # Data Visualization Files
 anime_count.py :
