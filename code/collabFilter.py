@@ -2,7 +2,7 @@ from surprise import Dataset, evaluate
 from surprise import KNNBasic
 from surprise import Reader
 from surprise import BaselineOnly
-from surprise.model_selection import cross_validate
+from surprise.model_selection import cross_validate, KFold
 from surprise import accuracy
 import surprise
 from collections import defaultdict
@@ -74,12 +74,18 @@ def precision_recall_at_k(predictions, k, threshold=9):
 
     return precisions, recalls
 
-file_path = "../data/10users.csv"
+file_path = "../data/pruned_data5.csv"
 reader = Reader(line_format='user item rating', rating_scale=(0,10), sep=',', skip_lines=1)
 print("Loading data from file...")
 data = Dataset.load_from_file(file_path, reader=reader)
 print("Building training set from data...")
-trainingSet = data.build_full_trainset()
+#trainingSet = data.build_full_trainset()
+kf = KFold(n_splits = 4)
+splits = kf.split(data)
+for i,j in kf.split(data):
+	trainingSet = i
+	testSet = j
+	break
 
 sim_options = {
     'name' : 'cosine'
@@ -89,8 +95,8 @@ knn = KNNBasic(sim_options=sim_options)
 print("Fitting KNN model to training set...")
 knn.fit(trainingSet)
 
-print("Building test set from data...")
-testSet = trainingSet.build_anti_testset()
+#print("Building test set from data...")
+#testSet = trainingSet.build_anti_testset()
 print("Making predictions on the test set...")
 predictions = knn.test(testSet)
 print("Print predictions...")
@@ -104,7 +110,7 @@ print("RMSE: "+ str(RMSE))
 #FCP = accuracy.fcp(predictions, verbose=False) #Not having more than 2 recommendations per user
 #print("FCP: "+ str(FCP))
 print("Precision and Recall micro-averaging...")
-precisions, recalls = precision_recall_at_k(predictions, 1, threshold=5)
+precisions, recalls = precision_recall_at_k(predictions, 10, threshold=5)
 precision = sum(precisions.values())
 recall = sum(recalls.values())
 total = precision+recall
@@ -130,7 +136,7 @@ print("RMSE: "+ str(RMSE))
 #FCP = accuracy.fcp(predictions, verbose=False) #Not having more than 2 recommendations per user
 #print("FCP: "+ str(FCP))
 print("Precision and Recall micro-averaging...")
-precisions, recalls = precision_recall_at_k(new_predictions, 1, threshold=5)
+precisions, recalls = precision_recall_at_k(new_predictions, 10, threshold=5)
 precision = sum(precisions.values())
 recall = sum(recalls.values())
 total = precision+recall
