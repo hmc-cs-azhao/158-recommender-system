@@ -7,7 +7,7 @@ import csv
 sns.set()
 
 # Set up numpy arr with user and anime data
-f = open('../../sparsity/pruned_data5.csv', 'r')
+f = open('../data/staff.csv', 'r')
 reader = csv.reader(f)
 users = defaultdict(int)
 anime = defaultdict(int)
@@ -32,7 +32,7 @@ total_anime = anime_count - 1
 
 data = np.zeros((total_users, total_anime))
 f.close()
-f = open('../../sparsity/pruned_data10.csv', 'r')
+f = open('../data/staff.csv', 'r')
 r = csv.reader(f)
 for row in r:
     curr_user = row[0]
@@ -45,4 +45,4 @@ for row in r:
 
 ax = sns.heatmap(data, vmin=0, vmax=10)
 fig = ax.get_figure()
-fig.savefig('heatmap.png')
+fig.savefig('staff_heatmap.png')

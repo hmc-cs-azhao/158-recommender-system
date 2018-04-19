@@ -1,11 +1,11 @@
 from collections import defaultdict
 import matplotlib.pyplot as plt
-plt.switch_backend('agg')
+#plt.switch_backend('agg')
 
 import numpy as np
 import csv
 
-file_path = "../../data/userSubset907.csv"
+file_path = "../data/staff.csv"
 f = open(file_path, 'rb')
 reader = csv.reader(f)
 
@@ -20,17 +20,16 @@ for row in reader:
 
 anime_counts = user_anime_count.values()
 sorted_counts = sorted(anime_counts)
-index = 0
-for i in range(len(sorted_counts)):
-    if sorted_counts[i] >= 2000:
-        index = i
-        break
+#index = 0
+#for i in range(len(sorted_counts)):
+#    if sorted_counts[i] >= 2000:
+#        index = i
+#        break
 
-n, bins, patches = plt.hist(sorted_counts[:index],40)
-for i in range(len(n)):
-    print(int(bins[i]), ":", n[i])
+plt.hist(sorted_counts)#, 40) #[:index],40)
+#for i in range(len(n)):
+#    print(int(bins[i]), ":", n[i])
 
-plt.plot(bins)
 plt.xlabel('Anime/User')
 plt.ylabel('Count')
 plt.savefig('anime_count.png')
