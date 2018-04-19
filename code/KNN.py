@@ -70,13 +70,16 @@ def precision_recall_at_k(predictions, k, threshold=9):
 file_path = "../data/train.csv"
 reader = Reader(line_format='user item rating', rating_scale=(0,10), sep=',', skip_lines=1)
 print("Loading train data from file...")
-train_data = Dataset.load_from_file(file_path, reader=reader)
+data = Dataset.load_from_file(file_path, reader=reader)
+train_data = data.build_full_trainset()
 
 # Load test data
 file_path = "../data/test.csv"
 reader = Reader(line_format='user item rating', rating_scale=(0,10), sep=',', skip_lines=1)
 print("Loading test data from file...")
-test_data = Dataset.load_from_file(file_path, reader=reader)
+data = Dataset.load_from_file(file_path, reader=reader)
+test = data.build_full_trainset()
+test_data = test.build_testset()
 
 # User-based CF
 user_sim_options = {
