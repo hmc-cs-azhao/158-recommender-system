@@ -85,10 +85,10 @@ user_sim_options = {
 }
 user_knn = KNNBasic(sim_options=user_sim_options)
 print("Fitting KNN user model to training set")
-user_knn.fit(trainingSet)
+user_knn.fit(train_data)
 
 print("Making user-based predictions on the test set...")
-user_predictions = user_knn.test(testSet)
+user_predictions = user_knn.test(test_data)
 
 print("User-based stats ...")
 RMSE = accuracy.rmse(predictions, verbose=False)
@@ -112,10 +112,10 @@ item_sim_options = {
 }
 item_knn = KNNBasic(sim_options=item_sim_options)
 print("Fitting KNN item model to training set")
-item_knn.fit(trainingSet)
+item_knn.fit(train_data)
 
 print("Making item-based predictions on the test set...")
-item_predictions = item_knn.test(testSet)
+item_predictions = item_knn.test(test_data)
 
 print("Item-based stats ...")
 RMSE = accuracy.rmse(predictions, verbose=False)
@@ -132,25 +132,4 @@ print("F1: " + str(float(2*precision*recall)/(precision+recall)))
 print("###########################################")
 print("###########################################")
 print("###########################################")
-
-# Baseline model
-print("Baseline Stats")
-mean_dict = baseline_recommendations(trainingSet)
-new_predictions = []
-for uid, iid, r_ui, est, details in predictions:
-    est = 0
-    if iid in mean_dict:
-        est = mean_dict[iid]
-    new_pred = surprise.prediction_algorithms.predictions.Prediction(uid, iid, r_ui, est, details)
-    new_predictions.append(new_pred)
-
-RMSE = accuracy.rmse(new_predictions, verbose=False)
-print("RMSE: "+ str(RMSE))
-precisions, recalls = precision_recall_at_k(new_predictions, 15, threshold=7)
-precision = sum(precisions.values())
-recall = sum(recalls.values())
-total = precision+recall
-print("Precision: " +str(float(precision)/total))
-print("Recall: " +str(float(recall)/total))
-print("F1: " + str(float(2*precision*recall)/(precision+recall)))
 
