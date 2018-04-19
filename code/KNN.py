@@ -94,9 +94,9 @@ print("Making user-based predictions on the test set...")
 user_predictions = user_knn.test(test_data)
 
 print("User-based stats ...")
-RMSE = accuracy.rmse(predictions, verbose=False)
+RMSE = accuracy.rmse(user_predictions, verbose=False)
 print("RMSE: "+ str(RMSE))
-precisions, recalls = precision_recall_at_k(predictions, 15, threshold=7)
+precisions, recalls = precision_recall_at_k(user_predictions, 15, threshold=7)
 precision = sum(precisions.values())
 recall = sum(recalls.values())
 total = precision+recall
@@ -121,9 +121,9 @@ print("Making item-based predictions on the test set...")
 item_predictions = item_knn.test(test_data)
 
 print("Item-based stats ...")
-RMSE = accuracy.rmse(predictions, verbose=False)
+RMSE = accuracy.rmse(item_predictions, verbose=False)
 print("RMSE: "+ str(RMSE))
-precisions, recalls = precision_recall_at_k(predictions, 15, threshold=7)
+precisions, recalls = precision_recall_at_k(item_predictions, 15, threshold=7)
 precision = sum(precisions.values())
 recall = sum(recalls.values())
 total = precision+recall
