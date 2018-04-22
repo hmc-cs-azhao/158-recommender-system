@@ -100,8 +100,10 @@ precisions, recalls = precision_recall_at_k(user_predictions, 15, threshold=7)
 precision = sum(precisions.values())
 recall = sum(recalls.values())
 total = precision+recall
-print("Precision: " +str(float(precision)/total))
-print("Recall: " +str(float(recall)/total))
+precision = float(precision)/total
+recall = float(recall)/total
+print("Precision: " +str(precision)
+print("Recall: " +str(recall)
 print("F1: " + str(float(2*precision*recall)/(precision+recall)))
 
 print("###########################################")
@@ -127,10 +129,11 @@ precisions, recalls = precision_recall_at_k(item_predictions, 15, threshold=7)
 precision = sum(precisions.values())
 recall = sum(recalls.values())
 total = precision+recall
-print("Precision: " +str(float(precision)/total))
-print("Recall: " +str(float(recall)/total))
+precision = float(precision)/total
+recall = float(recall)/total
+print("Precision: " +str(precision)
+print("Recall: " +str(recall)
 print("F1: " + str(float(2*precision*recall)/(precision+recall)))
-
 
 print("###########################################")
 print("###########################################")
