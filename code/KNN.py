@@ -87,6 +87,8 @@ user_sim_options = {
     'user_based' : True
 }
 user_knn = KNNBasic(sim_options=user_sim_options)
+#user_knn = KNNBasic(min_k=15,sim_options=user_sim_options)
+#user_knn = KNNBasic(k=30,sim_options=user_sim_options)
 print("Fitting KNN user model to training set")
 user_knn.fit(train_data)
 
@@ -102,8 +104,8 @@ recall = sum(recalls.values())
 total = precision+recall
 precision = float(precision)/total
 recall = float(recall)/total
-print("Precision: " +str(precision)
-print("Recall: " +str(recall)
+print("Precision: " +str(precision))
+print("Recall: " +str(recall))
 print("F1: " + str(float(2*precision*recall)/(precision+recall)))
 
 print("###########################################")
@@ -116,6 +118,8 @@ item_sim_options = {
     'user_based' : False
 }
 item_knn = KNNBasic(sim_options=item_sim_options)
+#item_knn = KNNBasic(min_k=15, sim_options=item_sim_options)
+#item_knn = KNNBasic(k=30, sim_options=item_sim_options)
 print("Fitting KNN item model to training set")
 item_knn.fit(train_data)
 
@@ -131,8 +135,8 @@ recall = sum(recalls.values())
 total = precision+recall
 precision = float(precision)/total
 recall = float(recall)/total
-print("Precision: " +str(precision)
-print("Recall: " +str(recall)
+print("Precision: " +str(precision))
+print("Recall: " +str(recall))
 print("F1: " + str(float(2*precision*recall)/(precision+recall)))
 
 print("###########################################")
